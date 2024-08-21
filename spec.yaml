@@ -1,0 +1,269 @@
+openapi: 3.0.0
+info:
+  title: Plaid API
+  version: 1.0.0
+  description: API for accessing financial institution data via Plaid.
+servers:
+  - url: https://sandbox.plaid.com
+paths:
+  /institutions/search:
+    post:
+      summary: Search for financial institutions
+      operationId: searchInstitutions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  example: your_client_id
+                secret:
+                  type: string
+                  example: your_sandbox_secret
+                query:
+                  type: string
+                  example: Chase
+                products:
+                  type: array
+                  items:
+                    type: string
+                    enum: [auth, balance, identity, transactions, investments]
+      responses:
+        '200':
+          description: A list of financial institutions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  institutions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        institution_id:
+                          type: string
+                          example: ins_118923
+                        name:
+                          type: string
+                          example: Red Platypus Bank - Red Platypus Bank
+                        country_codes:
+                          type: array
+                          items:
+                            type: string
+                            example: US
+                        products:
+                          type: array
+                          items:
+                            type: string
+                            enum: [assets, auth, balance, transactions, identity, investments]
+                        routing_numbers:
+                          type: array
+                          items:
+                            type: string
+                            example: 011000138
+                        dtc_numbers:
+                          type: array
+                          items:
+                            type: string
+                            example: 2236
+                        oauth:
+                          type: boolean
+                          example: false
+                        status:
+                          type: object
+                          properties:
+                            item_logins:
+                              type: object
+                              properties:
+                                status:
+                                  type: string
+                                  example: HEALTHY
+                                last_status_change:
+                                  type: string
+                                  format: date-time
+                                  example: 2019-02-15T15:53:00Z
+                                breakdown:
+                                  type: object
+                                  properties:
+                                    success:
+                                      type: number
+                                      format: float
+                                      example: 0.9
+                                    error_plaid:
+                                      type: number
+                                      format: float
+                                      example: 0.01
+                                    error_institution:
+                                      type: number
+                                      format: float
+                                      example: 0.09
+                            transactions_updates:
+                              type: object
+                              properties:
+                                status:
+                                  type: string
+                                  example: HEALTHY
+                                last_status_change:
+                                  type: string
+                                  format: date-time
+                                  example: 2019-02-12T08:22:00Z
+                                breakdown:
+                                  type: object
+                                  properties:
+                                    success:
+                                      type: number
+                                      format: float
+                                      example: 0.95
+                                    error_plaid:
+                                      type: number
+                                      format: float
+                                      example: 0.02
+                                    error_institution:
+                                      type: number
+                                      format: float
+                                      example: 0.03
+                                    refresh_interval:
+                                      type: string
+                                      example: NORMAL
+                            auth:
+                              type: object
+                              properties:
+                                status:
+                                  type: string
+                                  example: HEALTHY
+                                last_status_change:
+                                  type: string
+                                  format: date-time
+                                  example: 2019-02-15T15:53:00Z
+                                breakdown:
+                                  type: object
+                                  properties:
+                                    success:
+                                      type: number
+                                      format: float
+                                      example: 0.91
+                                    error_plaid:
+                                      type: number
+                                      format: float
+                                      example: 0.01
+                                    error_institution:
+                                      type: number
+                                      format: float
+                                      example: 0.08
+                            identity:
+                              type: object
+                              properties:
+                                status:
+                                  type: string
+                                  example: DEGRADED
+                                last_status_change:
+                                  type: string
+                                  format: date-time
+                                  example: 2019-02-15T15:50:00Z
+                                breakdown:
+                                  type: object
+                                  properties:
+                                    success:
+                                      type: number
+                                      format: float
+                                      example: 0.42
+                                    error_plaid:
+                                      type: number
+                                      format: float
+                                      example: 0.08
+                                    error_institution:
+                                      type: number
+                                      format: float
+                                      example: 0.5
+                            investments:
+                              type: object
+                              properties:
+                                status:
+                                  type: string
+                                  example: HEALTHY
+                                last_status_change:
+                                  type: string
+                                  format: date-time
+                                  example: 2019-02-15T15:53:00Z
+                                breakdown:
+                                  type: object
+                                  properties:
+                                    success:
+                                      type: number
+                                      format: float
+                                      example: 0.89
+                                    error_plaid:
+                                      type: number
+                                      format: float
+                                      example: 0.02
+                                    error_institution:
+                                      type: number
+                                      format: float
+                                      example: 0.09
+                            investments_updates:
+                              type: object
+                              properties:
+                                status:
+                                  type: string
+                                  example: HEALTHY
+                                last_status_change:
+                                  type: string
+                                  format: date-time
+                                  example: 2019-02-12T08:22:00Z
+                                breakdown:
+                                  type: object
+                                  properties:
+                                    success:
+                                      type: number
+                                      format: float
+                                      example: 0.95
+                                    error_plaid:
+                                      type: number
+                                      format: float
+                                      example: 0.02
+                                    error_institution:
+                                      type: number
+                                      format: float
+                                      example: 0.03
+                                    refresh_interval:
+                                      type: string
+                                      example: NORMAL
+                            liabilities_updates:
+                              type: object
+                              properties:
+                                status:
+                                  type: string
+                                  example: HEALTHY
+                                last_status_change:
+                                  type: string
+                                  format: date-time
+                                  example: 2019-02-12T08:22:00Z
+                                breakdown:
+                                  type: object
+                                  properties:
+                                    success:
+                                      type: number
+                                      format: float
+                                      example: 0.95
+                                    error_plaid:
+                                      type: number
+                                      format: float
+                                      example: 0.02
+                                    error_institution:
+                                      type: number
+                                      format: float
+                                      example: 0.03
+                                    refresh_interval:
+                                      type: string
+                                      example: NORMAL
+                  request_id:
+                    type: string
+                    example: Ggmk0enW4smO2Tp
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
